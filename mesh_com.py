@@ -1,9 +1,12 @@
+# 各時間帯の規格化した値と二週間最大値をidの各情報があるファイルと結合
 import pandas as pd
 from decimal import Decimal, ROUND_HALF_UP
 import os
 
-# 各時間帯の規格化した値と二週間最大値をidの各情報があるファイルと結合
+
+# idの情報と結合したいidが入っているファイルを読み込む
 df_all = pd.read_csv('H:/study/id_data/extract/extract_15.csv', encoding='cp932')
+# 2週間最大値と規格化値が入っているファイルが全部入っているデータ
 df_two_nv2 = pd.read_csv('H:/study/source/tweeks_concat/all_twoweeks.csv', encoding='cp932')
 for i in range(12):
     month = i + 1
