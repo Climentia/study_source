@@ -1,0 +1,37 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+parameter_list = [[1, 10, 1], [1, 1000, 1], [1, 1000, 5], [0.1, 1000, 5], [0.01, 1000, 5]]
+mesh_range = 0.02
+df_1_10_p1 = pd.read_csv('unchangeday_error_1_10_p1.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+print(df_1_10_p1)
+df_1_1000_p1 = pd.read_csv('unchange_error_1_1000_p1.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_1_1000_p5 = pd.read_csv('unchange_error_1_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_01_1000_p5 = pd.read_csv('unchange_error_01_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_001_1000_p5 = pd.read_csv('unchange_error_001_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_005_1000_p5 = pd.read_csv('unchange_error_005_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_0001_1000_p5 = pd.read_csv('unchange_error_0001_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_0005_1000_p5 = pd.read_csv('unchange_error_0005_1000_p5.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_persist = pd.read_csv('unchange_error_persist.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_persist_nv = pd.read_csv('unchange_error_persist_nv.csv', dtype={"id": str, 'year': str, "month" : str, "day" : str, "time" : str})
+df_all = pd.merge(df_persist_nv,df_1_10_p1, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_1_1000_p1, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_01_1000_p5, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_005_1000_p5, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_001_1000_p5, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_0005_1000_p5, on=['id', 'year', 'month', 'day', 'time'])
+df_all = pd.merge(df_all, df_0001_1000_p5, on=['id', 'year', 'month', 'day', 'time'])
+df_all = df_all.drop_duplicates(subset=('id', 'year', 'month', 'day', 'time')).dropna(how='any')
+df_all = df_all.drop('year', axis=1)
+df_all = df_all.drop('month', axis=1)
+df_all = df_all.drop('day', axis=1)
+df_all = df_all.drop('time', axis=1)
+cl_list = list(df_all.columns)
+count_df = df_all['id'].count()
+fig, ax = plt.subplots()
+plt.ylabel('Abusolute Error[%]')
+plt.title('Box plot Abusolute_error_distribution(unchangetime)' + '     Number of data:' + str(count_df))
+# boxplot = df_all.boxplot(column=cl_list[1:], whis="range", showmeans=True)
+boxplot = df_all.boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True, fontsize=8)
+plt.show()
