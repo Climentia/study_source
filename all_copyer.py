@@ -1,3 +1,4 @@
+# 予測データのコピーと名前の変更
 import os
 import shutil
 mesh_range = 0.02
