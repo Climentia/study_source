@@ -8,7 +8,7 @@ mesh_range = 0.02
 
 def int_calculation(year, month, day, time):
     print('-----int_copy-----')
-    file_path = 'H:/study/preprocessing_data/3_mesh_place/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + '_int.csv'
+    file_path = '../../preprocessing_data/3_mesh_place/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + '_int.csv'
     with open(file_path) as f:
         reader = csv.reader(f)
         list = [row for row in reader]
@@ -32,7 +32,7 @@ def int_calculation(year, month, day, time):
 
 def kanto_sort(year, month, day, time):
     print('-----kanto_sort-----')
-    read_path = 'H:/study/preprocessing_data/3_mesh_place/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + '_time_sort.csv'
+    read_path = '../../preprocessing_data/3_mesh_place/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + '_time_sort.csv'
     df = pd.read_csv(read_path, header=None, names=['lat', 'lng', 'env'])
     write_path = 'sort_kanto.csv'
     lat_min = 34.8

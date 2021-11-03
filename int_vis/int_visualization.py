@@ -8,7 +8,7 @@ mesh_range = 0.02
 
 def int_calculation(year, month, day, time):
     print('-----int_copy-----')
-    file_path = 'H:/study/preprocessing_data/4_interpolated_mesh/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + str(mesh_range) + '_int.csv'
+    file_path = '../../preprocessing_data/4_interpolated_mesh/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(time) + str(mesh_range) + '_int.csv'
     with open(file_path) as f:
         reader = csv.reader(f)
         list = [row for row in reader]
