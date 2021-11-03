@@ -5,12 +5,12 @@ import os
 
 
 # idの情報と結合したいidが入っているファイルを読み込む
-df_all = pd.read_csv('H:/study/id_data/extract/extract_15.csv', encoding='cp932')
+df_all = pd.read_csv('../id_data/extract/extract_15.csv', encoding='cp932')
 # 2週間最大値と規格化値が入っているファイルが全部入っているデータ
-df_two_nv2 = pd.read_csv('H:/study/source/tweeks_concat/all_twoweeks.csv', encoding='cp932')
+df_two_nv2 = pd.read_csv('./tweeks_concat/all_twoweeks.csv', encoding='cp932')
 for i in range(12):
     month = i + 1
-    path_month = 'H:/study/preprocessing_data/mesh_com_kanto/' + str(month) + '月/'
+    path_month = '../preprocessing_data/mesh_com_kanto/' + str(month) + '月/'
     path_month_cheack = os.path.exists(path_month)
     if path_month_cheack == False:
         os.makedirs(path_month)
@@ -30,7 +30,7 @@ for i in range(12):
         path_day_cheack = os.path.exists(path_day)
         if path_day_cheack == False:
             os.makedirs(path_day)
-        for tt in range(26):
+        for tt in range(25):
             tt2 = 6.5 + 0.5 * tt
             print(str(year) + str(month) + str(day) + str(tt2))
             df_two_nv3 = df_two_nv2[(df_two_nv2['year'] == year) & (df_two_nv2['month'] == month) & (df_two_nv2['day'] == day) & (df_two_nv2['time'] < tt2 + 0.1) & (df_two_nv2['time'] > tt2 - 0.1)]
