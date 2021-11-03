@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import os
 import csv
 from decimal import Decimal, ROUND_HALF_UP
@@ -8,6 +9,36 @@ lambda_num = 0.5
 iterate = 1000
 pyramid = 5
 mesh_range = 0.02
+
+
+def if_else01(x):
+    if (x.twoweeks_max < 0.001) and (x.nv < 0.001):
+        x.twoweeks_max = np.nan
+        x.nv = np.nan
+        x.preal = np.nan
+        x.preal_meshint = np.nan
+        x.ppred = np.nan
+        x.nv_max_perror = np.nan
+        x.nv_meshint_max_perror = np.nan
+    x.flo_lng = Decimal(str(x.flo_lng)).quantize(Decimal('0.0000001'), rounding=ROUND_HALF_UP)
+    x.flo_lat = Decimal(str(x.flo_lat)).quantize(Decimal('0.0000001'), rounding=ROUND_HALF_UP)
+    x.flo = Decimal(str(x.flo)).quantize(Decimal('0.0000001'), rounding=ROUND_HALF_UP)
+    x.id_lat = Decimal(str(x.id_lat)).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+    x.id_lng = Decimal(str(x.id_lng)).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+    x.observed_max = Decimal(str(x.observed_max)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.env = Decimal(str(x.env)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.nv = Decimal(str(x.nv)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.nv_meshint = Decimal(str(x.nv_meshint)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.preal = Decimal(str(x.preal)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.preal_meshint = Decimal(str(x.preal_meshint)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.ppred = Decimal(str(x.ppred)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.nv_max_perror = Decimal(str(x.nv_max_perror)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.nv_meshint_max_perror = Decimal(str(x.nv_meshint_max_perror)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    x.id_lat_mesh = Decimal(str(x.id_lat_mesh)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    x.id_lng_mesh = Decimal(str(x.id_lng_mesh)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    x.pvrate = Decimal(str(x.pvrate)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    x.twoweeks_max = Decimal(str(x.twoweeks_max)).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)
+    return x
 
 
 def isfloat(parameter):
@@ -35,7 +66,7 @@ def floater(list):
 
 for i in range(12):
     month = i + 1
-    path_month = 'H:/study/error_data/kanto_parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/'
+    path_month = '../../../error_data/kanto_parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/'
     path_month_cheack = os.path.exists(path_month)
     if path_month_cheack == False:
         os.makedirs(path_month)
@@ -58,10 +89,10 @@ for i in range(12):
         for tt in range(26):
             try:
                 tt2 = 6.5 + 0.5 * tt
-                read_path_com = 'H:/study/preprocessing_data/mesh_com_kanto/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(tt2) + '.csv'
-                read_path_int = 'H:/study/preprocessing_data/4_interpolated_mesh/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + str(mesh_range) + '_int.csv'
-                read_path_env = 'H:/study/prediction_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/env/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '_env.csv'
-                read_path_flo = 'H:/study/prediction_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/flo/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '_flo.csv'
+                read_path_com = '../../../preprocessing_data/mesh_com_kanto/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(tt2) + '.csv'
+                read_path_int = '../../../preprocessing_data/4_interpolated_mesh/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + str(mesh_range) + '_int.csv'
+                read_path_env = '../../../prediction_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/env/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '_env.csv'
+                read_path_flo = '../../../prediction_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/flo/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '_flo.csv'
                 write_path = path_day + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
                 print(str(year) + str(month) + str(day) + str(tt2))
                 # 補間後のメッシュデータを抽出
@@ -91,19 +122,7 @@ for i in range(12):
                 df_read_com['nv_max_perror'] = ((df_read_com['ppred'] - df_read_com['preal'])*100) / df_read_com['observed_max']
                 df_read_com['nv_meshint_max_perror'] = ((df_read_com['ppred'] - df_read_com['preal_meshint'])*100) / df_read_com['observed_max']
                 df_write = df_read_com[['id', 'id_lat', 'id_lng', 'id_lat_mesh', 'id_lng_mesh', 'id_prefecture', 'pvrate', 'observed_max', 'twoweeks_max', 'flo_lng', 'flo_lat', 'flo', 'nv', 'nv_meshint', 'env', 'preal', 'preal_meshint', 'ppred', 'nv_max_perror', 'nv_meshint_max_perror']]
-                column_list_00000001 = ['flo_lng', 'flo_lat', 'flo']
-                column_list_000001 = ['id_lat', 'id_lng']
-                column_list_0001 = ['observed_max', 'env', 'nv', 'nv_meshint', 'preal', 'preal_meshint', 'ppred', 'nv_max_perror', 'nv_meshint_max_perror']
-                column_list_001 = ['id_lat_mesh', 'id_lng_mesh', 'pvrate']
-                for my_col in df_write.columns:
-                    if my_col in column_list_00000001:
-                        df_write[my_col] = df_write[my_col].map(lambda x: float(Decimal(str(x)).quantize(Decimal('0.0000001'), rounding=ROUND_HALF_UP)))
-                    elif my_col in column_list_000001:
-                        df_write[my_col] = df_write[my_col].map(lambda x: float(Decimal(str(x)).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)))
-                    elif my_col in column_list_0001:
-                        df_write[my_col] = df_write[my_col].map(lambda x: float(Decimal(str(x)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)))
-                    elif my_col in column_list_001:
-                        df_write[my_col] = df_write[my_col].map(lambda x: float(Decimal(str(x)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)))
+                df_write = df_write.apply(if_else01, axis=1)
                 df_write.to_csv(write_path, encoding='cp932', index = False)
             except Exception as e:
                 print(str(e))

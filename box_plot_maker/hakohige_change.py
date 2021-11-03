@@ -21,7 +21,7 @@ df_all = pd.merge(df_all, df_01_1000_p5, on=['id', 'year', 'month', 'day', 'time
 df_all = pd.merge(df_all, df_005_1000_p5, on=['id', 'year', 'month', 'day', 'time'], how='outer')
 df_all = pd.merge(df_all, df_001_1000_p5, on=['id', 'year', 'month', 'day', 'time'], how='outer')
 df_all = pd.merge(df_all, df_0005_1000_p5, on=['id', 'year', 'month', 'day', 'time'], how='outer')
-df_all = df_all[(df_all['time']>10.0) & (df_all['time']<16.0)]
+df_all = df_all[(df_all['time']>9.5) & (df_all['time']<15.0)]
 df_all = df_all.drop_duplicates(subset=('id', 'year', 'month', 'day', 'time'))
 df_all.to_csv('test.csv', index=False)
 df_all = df_all.dropna()
@@ -36,5 +36,6 @@ fig, ax = plt.subplots()
 plt.ylabel('Abusolute Error[%]')
 plt.title('Box plot Abusolute_error_distribution(changetime)' + '     Number of data:' + str(count_df))
 # boxplot = df_all.boxplot(column=cl_list[1:], whis="range", showmeans=True, fontsize=8)
-boxplot = df_all.boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True, fontsize=8)
+boxplot = df_all.boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True, fontsize=8, notch=True)
+plt.ylim(-5, 100)
 plt.show()

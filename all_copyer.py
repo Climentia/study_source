@@ -1,4 +1,4 @@
-# 予測データ(binファイルで生成)のコピーと名前の変更
+# 前処理したデータを
 import os
 import shutil
 mesh_range = 0.02

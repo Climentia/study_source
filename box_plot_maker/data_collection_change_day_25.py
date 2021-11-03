@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-parameter_list = [[1, 10, 1], [1, 1000, 1], [1, 1000, 5], [0.5, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 1], [0.01, 1000, 5], [0.005, 1000, 5], [0.001, 1000, 5]]
+parameter_list = [[1, 10, 1], [1, 1000, 1], [1, 1000, 5], [0.5, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 5], [0.005, 1000, 5], [0.001, 1000, 5]]
 place = 'kanto'
 mesh_range = 0.02
 
@@ -14,7 +14,7 @@ def dfmaker(parameter, year, month, day, tt2, df_extract):
     iterate = parameter[1]
     pyramid = parameter[2]
     name = 'LMD:' + str(parameter[0]) + '::ITR:' + str(parameter[1]) + '::PRM:' + str(parameter[2])
-    read_path = 'H:/study/error_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
+    read_path = 'H:/study/error_data/kanto_parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract, on='id')
     # df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
@@ -37,7 +37,7 @@ def dfmaker_persist(year, month, day, tt2, df_extract):
     read_path = 'H:/study/error_data/parameter_persist_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract)
-    df_dup[name] = (((100*(df_dup['preal_meshint']-df_dup['ppred']).abs())/df_dup['observed_max']))
+    # df_dup[name] = (((100*(df_dup['preal_meshint']-df_dup['ppred']).abs())/df_dup['observed_max']))
     df_dup['year'] = year
     df_dup['month'] = month
     df_dup['day'] = day
@@ -52,7 +52,7 @@ def dfmaker_persist_nv(year, month, day, tt2, df_extract):
     day = int(day)
     tt2 = round(float(tt2), 2)
     name = 'persist_nv'
-    read_path = 'H:/study/error_data/parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
+    read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract)
     # df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
