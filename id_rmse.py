@@ -8,10 +8,11 @@ parameter_list = [[1, 10, 1], [1, 1000, 1], [1, 1000, 5], [0.5, 1000, 5], [0.1, 
 
 def pdcal(path, df_change, df_unchange):
     df_id_annual = pd.read_csv(path, encoding='cp932')
-    df_id_annual = df_id_annual[(df_id_annual['time'] > 9.9) & (df_id_annual['time'] < 15.1)]
+    df_id_annual = df_id_annual[(df_id_annual['time'] > 7.5) & (df_id_annual['time'] < 16.5)]
     df_id_annual['se'] = (df_id_annual['preal'] - df_id_annual['ppred'])**2
     rmse_all = np.sqrt(df_id_annual['se'].mean())
     rmse_all = Decimal(str(rmse_all)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
+    df_id_annual = df_id_annual[(df_id_annual['time'] > 9.9) & (df_id_annual['time'] < 15.1)]
     df_id_annual_change = pd.merge(df_id_annual, df_change, on=['year', 'month', 'day', 'time'])
     rmse_change = np.sqrt(df_id_annual_change['se'].mean())
     rmse_change = Decimal(str(rmse_change)).quantize(Decimal('0.001'), rounding=ROUND_HALF_UP)
@@ -22,7 +23,7 @@ def pdcal(path, df_change, df_unchange):
     return re_list
 
 
-df_write = pd.DataFrame(np.zeros((6200, len(parameter_list)*3 + 8)))
+df_write = pd.DataFrame(np.zeros((105, len(parameter_list)*3 + 8)))
 col = {0: 'id', 1: 'id_lat', 2: 'id_lng', 3: 'id_lat_mesh', 4: 'id_lng_mesh', 5: 'id_prefecture', 6: 'pvrate', 7: 'observed_max'}
 for a in range(len(parameter_list)):
     lambda_num = parameter_list[a][0]
@@ -38,13 +39,12 @@ df_weather = df_weather[(df_weather['time'] > 9.9) & (df_weather['time'] < 15.1)
 df_change = df_weather[df_weather['change'] > 0]
 df_unchange = df_weather[df_weather['change'] < 1]
 df_extract = pd.read_csv(extract_path, encoding='cp932', usecols=[0, 1, 2, 3, 4, 5, 6, 7])
-print(df_extract)
-input()
 for i in range(len(df_extract)):
     rmse = []
     id = df_extract.iat[i, 0]
+    print(id)
     lambda_num, iterate, pyramid = 0, 0, 0
-    for k in range(7):
+    for k in range(8):
         df_write.iat[i, k] = df_extract.iat[i, k]
     for j in range(len(parameter_list)):
         lambda_num = parameter_list[j][0]
@@ -55,4 +55,5 @@ for i in range(len(df_extract)):
         df_write.iat[i, 8+j*3] = rmse[j][0]
         df_write.iat[i, 9+j*3] = rmse[j][1]
         df_write.iat[i, 10+j*3] = rmse[j][2]
-df_write.to_csv('test.csv', index=False)
+df_write = df_write[df_write['id'] > 0]
+df_write.to_csv('id_rmse.csv', index=False, encoding ='cp932')

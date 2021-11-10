@@ -83,9 +83,9 @@ for i in range(12):
         for tt in range(25):
             try:
                 tt2 = round(7.0 + 0.5 * tt, 1)
-                read_path_com = '../../../preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(tt2) + '.csv'
+                read_path_com = '../../../preprocessing_data/mesh_com_kanto/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(tt2) + '.csv'
                 read_path_int = '../../../preprocessing_data/4_interpolated_mesh/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/NV' + str(year) + str(month) + str(day) + str(tt2) + str(mesh_range) + '_int.csv'
-                read_path_old = '../../../preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(round(tt2 - 0.5, 1)) + '.csv'
+                read_path_old = '../../../preprocessing_data/mesh_com_kanto/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/mesh_com' + str(year) + str(month) + str(day) + str(round(tt2 - 0.5, 1)) + '.csv'
                 write_path = path_day + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
                 print(str(year) + str(month) + str(day) + str(tt2))
                 # 補間後のメッシュデータを抽出
