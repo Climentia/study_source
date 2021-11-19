@@ -6,8 +6,8 @@ import os
 # 各パラメータ
 mesh_range = 0.02
 # 書き込むファイルの雛形を作成
-df_write0 = pd.DataFrame(np.zeros((35000, 20)))
-df_write0 = df_write0.rename(columns={0: 'year', 1: 'month', 2: 'day', 3: 'time', 4: 'id', 5: 'id_lat', 6: 'id_lng', 7: 'id_lat_mesh', 8: 'id_lng_mesh', 9: 'id_prefecture', 10: 'pvrate', 11: 'observed_max', 12: 'twoweeks_max', 13: 'flo_lng', 14: 'flo_lat', 15: 'flo', 16: 'nv', 17: 'nv_meshint', 18: 'env', 19: 'preal', 20: 'preal_meshint', 21: 'ppred'})
+df_write0 = pd.DataFrame(np.zeros((35000, 18)))
+df_write0 = df_write0.rename(columns={0: 'year', 1: 'month', 2: 'day', 3: 'time', 4: 'id', 5: 'id_lat', 6: 'id_lng', 7: 'id_lat_mesh', 8: 'id_lng_mesh', 9: 'id_prefecture', 10: 'pvrate', 11: 'observed_max', 12: 'twoweeks_max', 13: 'nv', 14: 'nv_meshint', 15: 'env', 16: 'preal', 17: 'preal_meshint'})
 df_write0['id_prefecture'] = df_write0['id_prefecture'].apply(lambda _: str(_))
 # 抽出したいidがまとまっているファイルを開く
 df_extract = pd.read_csv('../../../id_data/extract/extract_15.csv', encoding='cp932')
@@ -42,8 +42,8 @@ for a in range(len(df_extract)):
         for j in range(day_max):
             day = j+1
             # 各時間(30分おき)
-            for tt in range(24):
-                tt2 = 6.5 + 0.5 * tt
+            for tt in range(22):
+                tt2 = 7.0 + 0.5 * tt
                 # print(str(year) + str(month) + str(day) + str(tt2))
                 # 書き込むデータファイルにcountの行においてyear, month, day, tt2 の値を入れる
                 df_write.iat[count, 0] = year
@@ -58,7 +58,8 @@ for a in range(len(df_extract)):
                     # 抽出したいidをdf_timeから抽出
                     df_id = df_time[(df_time['id'] < extract_id+1) & (df_time['id'] > extract_id-1)].round({'id_lat':5, 'id_lng':5})
                     # 各情報を書き込むデータファイルのcountの行に代入
-                    for k in range(17):
+                    # print(df_id)
+                    for k in range(14):
                         df_write.iat[count, k+4] = df_id.iat[0, k]
                     count = count + 1
                 # 例外が起きた場合飛ばす

@@ -31,18 +31,15 @@ for i in range(12):
         read_path = 'H:/study/preprocessing_data/weather_data_20/' + str(month) + '月/mesh_com' + str(year) + str(month) + str(day) + '.csv'
         df0 = pd.read_csv(read_path)
         print(df0)
-        for tt in range(13):
+        for tt in range(11):
             # try:
             flag = 0
-            tt2 = 9.0 + 0.5 * tt
+            tt2 = 10.0 + 0.5 * tt
             print(str(year) + str(month) + str(day) + str(tt2))
             df = df0[['id', str(tt2)]]
             df2 = pd.merge(df_extract, df)
-            print(df2)
             main_count = df2[str(tt2)].count().sum()
             change_count = df2[str(tt2)].sum()
-            print(main_count)
-            print(change_count)
             num = change_count/main_count
             if num >= 0.80:
                 flag = 1

@@ -41,7 +41,7 @@ for i in range(12):
         read_path0 = 'H:/study/preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'mesh_com' + str(year) + str(month) + str(day) + str(6.5) + '.csv'
         df0 = read_pa(read_path0, 9.0)
         for tt in range(12):
-            tt2 = 9.5 + 0.5 * tt
+            tt2 = 10.0 + 0.5 * tt
             read_path = 'H:/study/preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'mesh_com' + str(year) + str(month) + str(day) + str(round(tt2, 2)) + '.csv'
             df = read_pa(read_path, tt2)
             df0 = pd.merge(df0, df, on='id', how='outer')

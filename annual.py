@@ -59,7 +59,7 @@ for i in range(15):
 # npArray_preal = df2[['preal']].values
 # npArray_twoweeks_max = df2[['twoweeks_max']].values
 # ax.plot(npArray_time, npArray_preal, label=str(month)+str(day_f), c='#ff8c00', marker='.', alpha=0.3)
- #ax.plot(npArray_time, npArray_twoweeks_max, label=str(month)+str(day_f) + '_twoweeks_max', c='#dc143c', marker='.', alpha=0.1)
+# ax.plot(npArray_time, npArray_twoweeks_max, label=str(month)+str(day_f) + '_twoweeks_max', c='#dc143c', marker='.', alpha=0.1)
 read_path2 = '../preprocessing_data/1_two_weeks_nv/' + str(id) + '.csv'
 df3 = pd.read_csv(read_path2, encoding='cp932', names=('year', 'month', 'day', 'tt', 'prate', 'nv', 'twoweeks_max'))
 df3['time'] = 0

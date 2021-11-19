@@ -1,6 +1,5 @@
 import pandas as pd
-import numpy as np
-parameter_list = [[1, 10, 1], [1, 1000, 1], [1, 1000, 5], [0.5, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 5], [0.005, 1000, 5], [0.001, 1000, 5]]
+parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 place = 'kanto'
 mesh_range = 0.02
 
@@ -13,18 +12,17 @@ def dfmaker(parameter, year, month, day, tt2, df_extract):
     lambda_num = parameter[0]
     iterate = parameter[1]
     pyramid = parameter[2]
-    name = 'LMD:' + str(parameter[0]) + '::ITR:' + str(parameter[1]) + '::PRM:' + str(parameter[2])
+    name = 'LMD:' + str(parameter[0])
     read_path = 'H:/study/error_data/kanto_parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract, on='id')
-    # df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
-    df_dup[name] = (df_dup['nv']-df_dup['env']).abs() * 100
+    df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
+    # df_dup[name] = (df_dup['nv']-df_dup['env']).abs() * 100
     df_dup['year'] = year
     df_dup['month'] = month
     df_dup['day'] = day
     df_dup['time'] = tt2
     df = df_dup[['id', 'year', 'month', 'day', 'time', name]]
-    print(df)
     return df
 
 
@@ -55,8 +53,8 @@ def dfmaker_persist_nv(year, month, day, tt2, df_extract):
     read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract)
-    # df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
-    df_dup[name] = (df_dup['nv']-df_dup['env']).abs() * 100
+    df_dup[name] = (((100*(df_dup['preal']-df_dup['ppred']).abs())/df_dup['observed_max']))
+    # df_dup[name] = (df_dup['nv']-df_dup['env']).abs() * 100
     df_dup['year'] = year
     df_dup['month'] = month
     df_dup['day'] = day
@@ -123,7 +121,6 @@ def persist_fanc():
             print(time)
             df2 = dfmaker_persist_nv(year, month, day, tt2, df_extract)
             df = pd.concat([df, df2])
-            print(df)
         write_path = './change_error/change_error_' + 'persist_nv_25.csv'
         df.to_csv(write_path, index=False)
 

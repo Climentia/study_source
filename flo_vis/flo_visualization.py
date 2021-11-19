@@ -5,12 +5,12 @@ from PIL import Image
 import pandas as pd
 import matplotlib.pyplot as plt
 
-parameter_list = [[1, 1000, 5], [0.5, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 5], [0.005, 1000, 5]]
+parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 mesh_range = 0.02
 year = 14
-month = 7
-day = 14
-time = 12.0
+month = 9
+day = 5
+time = 13.5
 t = str(year) + str(month) + str(day) + str(time)
 
 
@@ -91,75 +91,24 @@ def visualization():
         x_list.append(df['x_flo'].values.tolist())
         y_list.append(df['y_flo'].values.tolist())
         count = count + 1
-    fig = plt.figure(figsize=(20, 15))
-    fig.patch.set_facecolor('white')
-    fig.suptitle('vectorplot:' + t)
+    # fig = plt.figure(figsize=(20, 15))
+    # fig.patch.set_facecolor('white')
+    # fig.suptitle('vectorplot:' + t)
     # グラフ描画場所作成
-    ax0 = fig.add_subplot(231)
-    ax1 = fig.add_subplot(232)
-    ax2 = fig.add_subplot(233)
-    ax3 = fig.add_subplot(234)
-    ax4 = fig.add_subplot(235)
-    ax5 = fig.add_subplot(236)
-    # 軸ラベル設定
-    ax0.set_xlabel("longitude", fontsize=8)
-    ax0.set_ylabel("latitude", fontsize=8)
-    ax1.set_xlabel("longitude", fontsize=8)
-    ax1.set_ylabel("latitude", fontsize=8)
-    ax2.set_xlabel("longitude", fontsize=8)
-    ax2.set_ylabel("latitude", fontsize=8)
-    ax3.set_xlabel("longitude", fontsize=8)
-    ax3.set_ylabel("latitude", fontsize=8)
-    ax4.set_xlabel("longitude", fontsize=8)
-    ax4.set_ylabel("latitude", fontsize=8)
-    ax5.set_xlabel("longitude", fontsize=8)
-    ax5.set_ylabel("latitude", fontsize=8)
-    # タイトル設定
-    ax0.quiver(lng_list[0], lat_list[0], x_list[0], y_list[0], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax1.quiver(lng_list[1], lat_list[1], x_list[1], y_list[1], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax2.quiver(lng_list[2], lat_list[2], x_list[2], y_list[2], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax3.quiver(lng_list[3], lat_list[3], x_list[3], y_list[3], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax4.quiver(lng_list[4], lat_list[4], x_list[4], y_list[4], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax5.quiver(lng_list[5], lat_list[5], x_list[5], y_list[5], color="blue", angles='xy', scale_units='xy', scale=1)
-    ax0.set_ylim(34.9083, 37.1570)
-    ax0.set_xlim(138.3806, 140.8588)
-    ax1.set_ylim(34.9083, 37.1570)
-    ax1.set_xlim(138.3806, 140.8588)
-    ax2.set_ylim(34.9083, 37.1570)
-    ax2.set_xlim(138.3806, 140.8588)
-    ax3.set_ylim(34.9083, 37.1570)
-    ax3.set_xlim(138.3806, 140.8588)
-    ax4.set_ylim(34.9083, 37.1570)
-    ax4.set_xlim(138.3806, 140.8588)
-    ax5.set_ylim(34.9083, 37.1570)
-    ax5.set_xlim(138.3806, 140.8588)
-    # 大きさ取得
-    xlim0 = ax0.get_xlim()
-    ylim0 = ax0.get_ylim()
-    xlim1 = ax1.get_xlim()
-    ylim1 = ax1.get_ylim()
-    xlim2 = ax2.get_xlim()
-    ylim2 = ax2.get_ylim()
-    xlim3 = ax3.get_xlim()
-    ylim3 = ax3.get_ylim()
-    xlim4 = ax4.get_xlim()
-    ylim4 = ax4.get_ylim()
-    xlim5 = ax5.get_xlim()
-    ylim5 = ax5.get_ylim()
-    # [[1, 1000, 5], [0.5, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 5], [0.005, 1000, 5]]
-    # [[1, 1000, 1], [0.01, 1000, 1], [0.1, 1000, 5], [1, 1000, 5], [0.01, 1000, 5], [0.001, 1000, 5]]
-    ax0.set_title('lambda:1 iterate:1000 pyramid:5', fontsize=10)
-    ax1.set_title('lambda:0.5 iterate:1000 pyramid:5', fontsize=10)
-    ax2.set_title('lambda:0.1 iterate:1000 pyramid:5', fontsize=10)
-    ax3.set_title('lambda:0.05 iterate:1000 pyramid:5', fontsize=10)
-    ax4.set_title('lambda:0.01 iterate:1000 pyramid:5', fontsize=10)
-    ax5.set_title('lambda:0.005 iterate:1000 pyramid:5', fontsize=10)
-    ax0.imshow(im, extent=[*xlim0, *ylim0], aspect='auto', alpha=0.9)
-    ax1.imshow(im, extent=[*xlim1, *ylim1], aspect='auto', alpha=0.9)
-    ax2.imshow(im, extent=[*xlim2, *ylim2], aspect='auto', alpha=0.9)
-    ax3.imshow(im, extent=[*xlim3, *ylim3], aspect='auto', alpha=0.9)
-    ax4.imshow(im, extent=[*xlim4, *ylim4], aspect='auto', alpha=0.9)
-    ax5.imshow(im, extent=[*xlim5, *ylim5], aspect='auto', alpha=0.9)
+    fig, axes = plt.subplots(3, 3, figsize=(30, 40))
+    one_dimension_axes = axes.ravel()
+    count = 0
+    for i, ax in enumerate(one_dimension_axes):
+        ax.set_xlabel("longitude", fontsize=10)
+        ax.set_ylabel("latitude", fontsize=10)
+        ax.quiver(lng_list[count], lat_list[count], x_list[count], y_list[count], color="blue", angles='xy', scale_units='xy', scale=1)
+        ax.set_ylim(34.9083, 37.1570)
+        ax.set_xlim(138.3806, 140.8588)
+        xlim0 = ax.get_xlim()
+        ylim0 = ax.get_ylim()
+        ax.set_title('lambda:' + str(parameter_list[count][0]) + ' iterate:' + str(parameter_list[count][1]) + 'pyramid:' + str(parameter_list[count][2]), fontsize=10)
+        ax.imshow(im, extent=[*xlim0, *ylim0], aspect='auto', alpha=0.9)
+        count += 1
     fig.subplots_adjust(wspace=0.2, hspace=0.2)
     fig.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.9)
     # plt.show()
