@@ -1,21 +1,21 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-parameter_list = [[1, 1000, 5], [0.1, 1000, 5], [0.05, 1000, 5], [0.01, 1000, 5], [0.005, 1000, 5], [0.001, 1000, 5]]
+parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 place = 'kanto'
 mesh_range = 0.02
-year = 14
-month = 7
-day = 18
-tt2 = 13.5
+year = 13
+month = 9
+day = 5
+tt2 = 12.5
 
 
 def dfmaker(parameter):
     lambda_num = parameter[0]
     iterate = parameter[1]
     pyramid = parameter[2]
-    name = 'LMD:' + str(parameter[0]) + '::ITR:' + str(parameter[1]) + '::PRM:' + str(parameter[2])
-    read_path = 'H:/study/error_data/parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
+    name = 'LMD:' + str(parameter[0])
+    read_path = 'H:/study/error_data/kanto_parameter_lambda_' + str(lambda_num) + '_iterate_' + str(iterate) + '_p' + str(pyramid) + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     # df_dup0 = df_read0.drop_duplicates(subset=('id_lat_mesh', 'id_lng_mesh')).dropna(how='any')
     df_dup = pd.merge(df_read0, df_40)
@@ -26,7 +26,8 @@ def dfmaker(parameter):
 
 def dfmaker_persist():
     name = 'persist'
-    read_path = 'H:/study/error_data/parameter_persist_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_30min.csv'
+    # H:\study\error_data\kanto_parameter_persist_nv_30min\9月\9月5日
+    read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     # df_dup0 = df_read0.drop_duplicates(subset=('id_lat_mesh', 'id_lng_mesh')).dropna(how='any')
     df_dup = pd.merge(df_read0, df_40)
@@ -37,7 +38,7 @@ def dfmaker_persist():
 
 def dfmaker_persist_nv():
     name = 'persist_nv'
-    read_path = 'H:/study/error_data/parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
+    read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     # df_dup0 = df_read0.drop_duplicates(subset=('id_lat_mesh', 'id_lng_mesh')).dropna(how='any')
     df_dup = pd.merge(df_read0, df_40)
@@ -70,8 +71,11 @@ boxplot = df_list[0].boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True)
 boxplot.plot()
 count_df = df_list[0]['id'].count()
 print(df_list[0].count())
+plt.xlabel('Parameter')
 plt.ylabel('Abusolute Error[%]')
 plt.title('Box plot   time:' + time + '   Number of data:' + str(count_df))
 plt.show()
+df_write = df_list.describe()
+df_wirte.to_csv()
 # read_path_com = 'F:/study/preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
 # write_path = path_day + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'

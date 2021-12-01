@@ -12,7 +12,7 @@ for i in range(len(parameter_list)):
     else:
         df_all = pd.merge(df_all, df, on=['id', 'year', 'month', 'day', 'time'], how='outer')
 print(df_persist_nv.dtypes)
-df_all = df_all[(df_all['time']>9.5) & (df_all['time']<15.0)]
+# df_all = df_all[(df_all['time']>9.5) & (df_all['time']<15.0)]
 df_all = df_all.drop_duplicates(subset=('id', 'year', 'month', 'day', 'time'))
 df_all.to_csv('test.csv', index=False)
 df_all = df_all.dropna()

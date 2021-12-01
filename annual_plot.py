@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-id = 6620000132
+id = 1680000216
 month = 4
 day = 28
 j = 0
@@ -53,11 +53,13 @@ ax0.set_xlabel("Time[h]", fontsize=10)
 ax0.set_ylabel("Output[w]", fontsize=10)
 ax1.set_xlabel("Time[h]", fontsize=10)
 ax1.set_ylabel("Normalized Value", fontsize=10)
-ax0.set_xlim(5, 18.5)
+ax0.set_xlim(4.5, 19.5)
 ax1.set_ylim(0, 1)
-ax1.set_xlim(5, 18.5)
-ax0.axvspan(10, 15, color="coral", alpha=0.2)
+ax1.set_xlim(4.5, 19.5)
+ax0.axvspan(7, 17.5, color="coral", alpha=0.2)
+ax0.axvspan(7.45, 7.55, color="red", alpha=0.2)
 ax0.axvspan(13.45, 13.55, color="red", alpha=0.2)
-ax1.axvspan(10, 15, color="coral", alpha=0.2)
+ax1.axvspan(7, 17.5, color="coral", alpha=0.2)
+ax1.axvspan(7.45, 7.55, color="red", alpha=0.2)
 ax1.axvspan(13.45, 13.55, color="red", alpha=0.2)
 plt.show()

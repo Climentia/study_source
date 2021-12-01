@@ -1,6 +1,5 @@
 import csv
-import glob
-import numpy as np
+import os
 from PIL import Image
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,13 +7,11 @@ import matplotlib.pyplot as plt
 parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 mesh_range = 0.02
 year = 14
-month = 9
-day = 5
-time = 13.5
-t = str(year) + str(month) + str(day) + str(time)
+month = 6
+day = 29
 
 
-def flo_calculation():
+def flo_calculation(time):
     print('-----flo_calculation-----')
     for parameter in parameter_list:
         print(parameter)
@@ -45,7 +42,7 @@ def flo_calculation():
                     fw.write(txt)
 
 
-def kanto_sort():
+def kanto_sort(time):
     print('-----kanto_sort-----')
     for parameter in parameter_list:
         print(parameter)
@@ -71,7 +68,7 @@ def kanto_sort():
                     fw.write(txt)
 
 
-def visualization():
+def visualization(year, month, day, time, t):
     im = Image.open("./kanto.png")
     print('-----visualization-----')
     count = 0
@@ -99,22 +96,29 @@ def visualization():
     one_dimension_axes = axes.ravel()
     count = 0
     for i, ax in enumerate(one_dimension_axes):
-        ax.set_xlabel("longitude", fontsize=10)
-        ax.set_ylabel("latitude", fontsize=10)
+        ax.set_xlabel("longitude", fontsize=18)
+        ax.set_ylabel("latitude", fontsize=18)
         ax.quiver(lng_list[count], lat_list[count], x_list[count], y_list[count], color="blue", angles='xy', scale_units='xy', scale=1)
         ax.set_ylim(34.9083, 37.1570)
         ax.set_xlim(138.3806, 140.8588)
         xlim0 = ax.get_xlim()
         ylim0 = ax.get_ylim()
-        ax.set_title('lambda:' + str(parameter_list[count][0]) + ' iterate:' + str(parameter_list[count][1]) + 'pyramid:' + str(parameter_list[count][2]), fontsize=10)
+        ax.set_title('lambda:' + str(parameter_list[count][0]), fontsize=20)
         ax.imshow(im, extent=[*xlim0, *ylim0], aspect='auto', alpha=0.9)
+        ax.tick_params(axis='x', labelsize=12)
         count += 1
     fig.subplots_adjust(wspace=0.2, hspace=0.2)
     fig.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.9)
-    # plt.show()
-    fig.savefig('vector' + t + '.png')
+    path_day = './' + str(year) + str(month) + str(day) + '/'
+    path_day_cheack = os.path.exists(path_day)
+    if path_day_cheack == False:
+        os.makedirs(path_day)
+    fig.savefig(path_day + 'vector' + t + '.png')
 
 
-flo_calculation()
-kanto_sort()
-visualization()
+for i in range(20):
+    time = 9.0 + 0.5*i
+    t = str(year) + str(month) + str(day) + str(time)
+    flo_calculation(time)
+    kanto_sort(time)
+    visualization(year, month, day, time, t)

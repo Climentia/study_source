@@ -1,7 +1,8 @@
 import pandas as pd
-parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
+parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5], [0.036, 100, 5], [0.019, 100, 5], [0.516, 100, 5]]
 place = 'kanto'
 mesh_range = 0.02
+weather_path = 'H:/study/source/weather/change_weather_20.csv'
 
 
 def dfmaker(parameter, year, month, day, tt2, df_extract):
@@ -68,7 +69,7 @@ def parameter_fanc():
     extract_path = 'H:/study/id_data/extract/extract_15.csv'
     df_extract0 = pd.read_csv(extract_path, encoding='cp932')
     df_extract = df_extract0[['id', 'r']]
-    df_change_weather = pd.read_csv('H:/study/source/weather/change_weather_25.csv',
+    df_change_weather = pd.read_csv(weather_path,
                                     encoding='cp932')
     df_change_weather = df_change_weather[df_change_weather['change'] > 0]
     for parameter in parameter_list:
@@ -101,7 +102,7 @@ def persist_fanc():
     extract_path = 'H:/study/id_data/extract/extract_15.csv'
     df_extract0 = pd.read_csv(extract_path, encoding='cp932')
     df_extract = df_extract0[['id', 'r']]
-    df_change_weather = pd.read_csv('H:/study/source/weather/change_weather_25.csv',
+    df_change_weather = pd.read_csv(weather_path,
                                     encoding='cp932')
     df_change_weather = df_change_weather[df_change_weather['change'] > 0]
     for i in range(1):
