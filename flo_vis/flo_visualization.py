@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 mesh_range = 0.02
 year = 14
-month = 6
-day = 29
+month = 3
+day = 16
 
 
 def flo_calculation(time):
@@ -53,8 +53,8 @@ def kanto_sort(time):
         df = pd.read_csv(read_path, header=None, names=['lat', 'lng', 'x_flo', 'y_flo'])
         write_path = 'sort_kanto' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
         with open(write_path, "w") as fw:
-            for i in range(24):
-                for j in range(24):
+            for i in range(28):
+                for j in range(28):
                     lat = 34.8 + 0.1 * i
                     lat_min = lat-0.05
                     lat_max = lat+0.05
@@ -69,7 +69,7 @@ def kanto_sort(time):
 
 
 def visualization(year, month, day, time, t):
-    im = Image.open("./kanto.png")
+    im = Image.open("../kanto.png")
     print('-----visualization-----')
     count = 0
     lat_list = []
@@ -95,17 +95,19 @@ def visualization(year, month, day, time, t):
     fig, axes = plt.subplots(3, 3, figsize=(30, 40))
     one_dimension_axes = axes.ravel()
     count = 0
+    fig.suptitle('vectorplot:' + t, fontsize=40)
     for i, ax in enumerate(one_dimension_axes):
-        ax.set_xlabel("longitude", fontsize=18)
-        ax.set_ylabel("latitude", fontsize=18)
+        ax.set_xlabel("longitude", fontsize=25)
+        ax.set_ylabel("latitude", fontsize=25)
         ax.quiver(lng_list[count], lat_list[count], x_list[count], y_list[count], color="blue", angles='xy', scale_units='xy', scale=1)
-        ax.set_ylim(34.9083, 37.1570)
-        ax.set_xlim(138.3806, 140.8588)
+        ax.set_ylim(34.88, 37.18)
+        ax.set_xlim(138.38, 140.92)
         xlim0 = ax.get_xlim()
         ylim0 = ax.get_ylim()
-        ax.set_title('lambda:' + str(parameter_list[count][0]), fontsize=20)
+        ax.set_title('lambda:' + str(parameter_list[count][0]), fontsize=30)
         ax.imshow(im, extent=[*xlim0, *ylim0], aspect='auto', alpha=0.9)
-        ax.tick_params(axis='x', labelsize=12)
+        ax.tick_params(axis='x', labelsize=20)
+        ax.tick_params(axis='y', labelsize=20)
         count += 1
     fig.subplots_adjust(wspace=0.2, hspace=0.2)
     fig.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.9)

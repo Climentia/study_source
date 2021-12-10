@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 place = 'kanto'
 mesh_range = 0.02
-year = 13
-month = 9
-day = 5
-tt2 = 12.5
+year = 14
+month = 3
+day = 21
+tt2 = 12.0
 
 
 def dfmaker(parameter):
@@ -37,7 +37,7 @@ def dfmaker_persist():
 
 
 def dfmaker_persist_nv():
-    name = 'persist_nv'
+    name = 'Persist'
     read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     # df_dup0 = df_read0.drop_duplicates(subset=('id_lat_mesh', 'id_lng_mesh')).dropna(how='any')
@@ -67,15 +67,15 @@ for k in range(len(df_list)-1):
 print(df_list)
 cl_list = list(df_list[0].columns)
 count = count + 1
-boxplot = df_list[0].boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True)
+boxplot = df_list[0].boxplot(column=cl_list[1:], whis=[0, 100], showmeans=True, fontsize=14)
 boxplot.plot()
 count_df = df_list[0]['id'].count()
 print(df_list[0].count())
-plt.xlabel('Parameter')
-plt.ylabel('Abusolute Error[%]')
-plt.title('Box plot   time:' + time + '   Number of data:' + str(count_df))
+plt.xlabel('Parameter', fontsize=18)
+plt.ylabel('Abusolute Error[%]', fontsize=18)
+plt.title('Box plot   time:' + time + '   Number of data:' + str(count_df), fontsize=15)
 plt.show()
 df_write = df_list.describe()
-df_wirte.to_csv()
+df_write.to_csv('out.csv')
 # read_path_com = 'F:/study/preprocessing_data/mesh_com/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'
 # write_path = path_day + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_' + str(lambda_num) + '_' + str(iterate) + '_p' + str(pyramid) + '.csv'

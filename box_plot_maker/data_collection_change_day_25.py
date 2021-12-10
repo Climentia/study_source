@@ -1,5 +1,5 @@
 import pandas as pd
-parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5], [0.036, 100, 5], [0.019, 100, 5], [0.516, 100, 5]]
+parameter_list = [[1, 1000, 5], [0.516, 1000, 5], [0.266, 1000, 5], [0.137, 1000, 5], [0.071, 1000, 5], [0.036, 1000, 5], [0.019, 1000, 5], [0.010, 1000, 5], [0.005, 1000, 5]]
 place = 'kanto'
 mesh_range = 0.02
 weather_path = 'H:/study/source/weather/change_weather_20.csv'
@@ -50,7 +50,7 @@ def dfmaker_persist_nv(year, month, day, tt2, df_extract):
     month = int(month)
     day = int(day)
     tt2 = round(float(tt2), 2)
-    name = 'persist_nv'
+    name = 'Persist'
     read_path = 'H:/study/error_data/kanto_parameter_persist_nv_30min' + '/' + str(month) + '月/' + str(month) + '月' + str(day) + '日/' + 'error_' + str(year) + str(month) + str(day) + str(tt2) + '_' + str(mesh_range) + '_presist_nv_30min.csv'
     df_read0 = pd.read_csv(read_path, encoding='cp932')
     df_dup = pd.merge(df_read0, df_extract)
